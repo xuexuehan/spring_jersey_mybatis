@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xx.dao.UserDao">
+    <resultMap id="userResultMap" type="com.xx.entity.User">
+        <id column="id" property="id"/>
+        <result column="uname" property="name"/>
+        <result column="passwd" property="passwd"/>
+        <result column="age" property="age"/>
+    </resultMap>
+
+    <resultMap id="userMap" type="com.xx.entity.User">
+        <result column="uname" property="name"/>
+        <result column="age" property="age"/>
+    </resultMap>
+    <!--增加-->
+    <insert id="addUser">
+        INSERT INTO tb_user(
+        id,
+        uname,
+        passwd,
+        age
+        )VALUES(
+        #{user.id},
+        #{user.name},
+        #{user.passwd},
+        #{user.age}
+        )
+    </insert>
+    <!--删除-->
+    <delete id="delUser">
+        DELETE
+        FROM tb_user WHERE id = #{id}
+    </delete>
+    <!--查询-->
+    <select id="findById" resultMap="userResultMap">
+        SELECT
+        id,
+        uname,
+        passwd,
+        age
+        FROM tb_user WHERE id = #{id}
+    </select>
+    <!--更新-->
+    <update id="update">
+        UPDATE tb_user
+        SET
+        uname = #{user.name},
+        passwd = #{user.passwd},
+        age = #{user.age}
+        WHERE
+        id = #{user.id}
+    </update>
+    <!--查询列表-->
+    <select id="find" resultMap="userMap">
+        SELECT
+         uname,
+         age
+         FROM tb_user
+    </select>
+
+    <select id="findAll" resultMap="userResultMap">
+        SELECT
+        id,
+        uname,
+        passwd,
+        age
+        FROM tb_user
+    </select>
+
+</mapper>
